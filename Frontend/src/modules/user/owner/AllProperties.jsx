@@ -71,7 +71,7 @@ const OwnerAllProperties = () => {
       if (image) formData.append("propertyImage", image);
       formData.append("isAvailable", status);
 
-      const res = await .patch(
+      const res = await instance.patch(
         `/api/owner/updateproperty/${propertyId}`,
         formData
       );
