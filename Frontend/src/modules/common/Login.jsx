@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import instance from "../../api/axios";
 import Toast from "../common/Toast";
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,10 +34,9 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "http://localhost:8001/api/user/login",
-        data,
-        { withCredentials: true }
+      const res = await instance.post(
+        "/api/login",
+        { email: data.email, password: data.password }
       );
 
       if (res.data?.success) {

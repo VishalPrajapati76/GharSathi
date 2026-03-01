@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import instance from "../../api/axios";
 import Toast from "../common/Toast";
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -35,9 +35,7 @@ const Register = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:8001/api/user/register", form, {
-        withCredentials: true,
-      });
+      const res = await instance.post("/api/user/register", form);
 
       if (res.data?.success) {
         showToast("success", res.data.message || "Registered successfully");

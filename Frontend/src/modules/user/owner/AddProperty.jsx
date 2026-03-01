@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/axios";
 import { message } from "antd";
 import {useNavigate} from "react-router-dom"
 
-axios.defaults.withCredentials = true; 
+//axios.defaults.withCredentials = true; 
 
 function AddProperty() {
   const [image, setImage] = useState(null);
@@ -51,10 +51,9 @@ function AddProperty() {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:8001/api/owner/postproperty",
-        formData,
-        { withCredentials: true }
+      const res = await instance.post(
+        "/api/owner/addproperty",
+        formData
       );
 
       if (res.data.success) {

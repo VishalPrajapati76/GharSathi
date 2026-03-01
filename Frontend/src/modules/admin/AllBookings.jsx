@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../api/axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 const AdminAllBookings = () => {
   const [allBookings, setAllBookings] = useState([]);
@@ -11,9 +11,8 @@ const AdminAllBookings = () => {
 
   const getAllBooking = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8001/api/admin/getallbookings",
-        { withCredentials: true }
+      const response = await instance.get(
+        "/api/admin/getallbookings"
       );
 
       if (response.data.success) {

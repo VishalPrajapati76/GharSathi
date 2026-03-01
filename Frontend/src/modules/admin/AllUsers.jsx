@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../api/axios";
 import Toast from "../common/Toast";
 import { useNavigate } from "react-router-dom";
 
 
-axios.defaults.withCredentials = true;
+// //axios.defaults.withCredentials = true;
 
 const AllUsers = () => {
   const [allUser, setAllUser] = useState([]);
@@ -21,21 +21,24 @@ const AllUsers = () => {
 
   const getAllUser = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8001/api/admin/getallusers"
+      const response = await instance.get(
+        "/api/admin/getallusers"
       );
       if (response.data.success) {
         setAllUser(response.data.data);
       } else {
+         // eslint-disable-next-line no-undef
          message.error(response.data.message || "Unauthorized access");
         navigate("/login"); 
       }
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 401) {
+        // eslint-disable-next-line no-undef
         message.error("Session expired, please login again");
         navigate("/login");
       } else {
+        // eslint-disable-next-line no-undef
         message.error("Failed to fetch Users");
       }
     }
@@ -43,9 +46,9 @@ const AllUsers = () => {
 
   const handleStatus = async (userid, status) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8001/api/admin/handlestatus",
-        { userid, status }
+      const res = await instance.post(
+        "/api/admin/updateuserstatus",
+        { userId: userid, status }
       );
 
       if (res.data.success) {

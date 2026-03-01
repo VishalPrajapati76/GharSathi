@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import instance from "../../api/axios";
 import Toast from "../common/Toast";
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -37,10 +37,9 @@ const ForgotPassword = () => {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:8001/api/user/forgotpassword",
-        data,
-        { withCredentials: true }
+      const res = await instance.post(
+        "/api/forgotpassword",
+        { email: data.email, password: data.password }
       );
 
       if (res.data.success) {

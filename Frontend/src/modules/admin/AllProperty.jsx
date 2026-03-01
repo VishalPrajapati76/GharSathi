@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../api/axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 const AdminAllProperty = () => {
   const [allProperties, setAllProperties] = useState([]);
@@ -11,9 +11,8 @@ const AdminAllProperty = () => {
 
   const getAllProperty = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8001/api/admin/getallproperties",
-        { withCredentials: true }
+      const response = await instance.get(
+        "/api/admin/getallproperties"
       );
 
       if (response.data.success) {

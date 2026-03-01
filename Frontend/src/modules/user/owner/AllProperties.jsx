@@ -1,6 +1,6 @@
 import { message } from "antd";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/axios";
 import {useNavigate} from "react-router-dom"
 
 const OwnerAllProperties = () => {
@@ -28,9 +28,8 @@ const OwnerAllProperties = () => {
 
   const getAllProperty = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8001/api/owner/getallproperties",
-        { withCredentials: true }
+      const response = await instance.get(
+        "/api/owner/getallproperties"
       );
       if (response.data.success) {
         setAllProperties(response.data.data);
@@ -72,10 +71,9 @@ const OwnerAllProperties = () => {
       if (image) formData.append("propertyImage", image);
       formData.append("isAvailable", status);
 
-      const res = await axios.patch(
-        `http://localhost:8001/api/owner/updateproperty/${propertyId}`,
-        formData,
-        { withCredentials: true }
+      const res = await .patch(
+        `/api/owner/updateproperty/${propertyId}`,
+        formData
       );
 
       if (res.data.success) {
@@ -101,9 +99,8 @@ const OwnerAllProperties = () => {
   const handleDelete = async (propertyId) => {
     if (window.confirm("Are you sure to delete?")) {
       try {
-        const response = await axios.delete(
-          `http://localhost:8001/api/owner/deleteproperty/${propertyId}`,
-          { withCredentials: true }
+        const response = await instance.delete(
+          `/api/owner/deleteproperty/${propertyId}`
         );
 
         if (response.data.success) {

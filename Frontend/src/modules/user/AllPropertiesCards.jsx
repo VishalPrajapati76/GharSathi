@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "../../api/axios";
 import React, { useEffect, useMemo, useState } from "react";
 import Toast from "../common/Toast";
 
@@ -17,9 +17,7 @@ const AllPropertiesCards = ({ loggedIn, filters }) => {
 
   const getAllProperties = async () => {
     try {
-      const res = await axios.get("http://localhost:8001/api/user/getAllProperties", {
-        withCredentials: true,
-      });
+      const res = await instance.get("/api/user/getAllProperties");
       setAllProperties(res.data.data || []);
     } catch (error) {
       console.log(error);
@@ -37,10 +35,14 @@ const AllPropertiesCards = ({ loggedIn, filters }) => {
 
   const handleBooking = async (status, propertyId, ownerId) => {
     try {
-      const res = await axios.post(
-        `http://localhost:8001/api/user/bookinghandle/${propertyId}`,
-        { userDetails, status, ownerId },
-        { withCredentials: true }
+      const res = await instance.post(
+        `/api/user/book/${propertyId}`,
+        {
+          userDetails,
+          status,
+          userId: JSON.parse(localStorage.getItem("user"))?._id,
+          ownerId,
+        }
       );
 
       if (res.data.success) {
