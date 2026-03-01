@@ -17,7 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ CORS (IMPORTANT: OPTIONS + PATCH included)
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:[
+      "http://localhost:5173",
+      "https://gharsathi.vercel.app"
+    ]
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   })
