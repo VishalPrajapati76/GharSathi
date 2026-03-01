@@ -9,7 +9,7 @@ const RenterAllProperty = () => {
 
   const getAllProperty = async () => {
     try {
-      const response = await .get(
+      const response = await instance.get(
         "/api/renter/getallbookings"
       );
 
