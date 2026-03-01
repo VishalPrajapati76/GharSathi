@@ -19,7 +19,7 @@ app.use(
   cors({
     origin:[
       "http://localhost:5173",
-      "https://gharsathi.vercel.app",
+      "https://ghar-sathi.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
